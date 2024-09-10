@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convex Hull </title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            background-image: url('background.jpg'); /* Replace 'background.jpg' with your image file */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 50px;
+            color: #fff; /* White color for heading */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Text shadow for emphasis */
+        }
+
+        form {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        label, select, input[type="submit"] {
+            display: block;
+            margin: 10px auto;
+        }
+
+        textarea {
+            width: 80%;
+            resize: none;
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #4CAF50; /* Green */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049; /* Darker green on hover */
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 30px;
+            color: #fff; /* White color for headings */
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: center;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        img {
+            display: block;
+            margin: 0 auto;
+            max-width: 80%;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Box shadow for image */
+        }
+
+        p {
+            text-align: center;
+            color: #fff; /* White color for paragraphs */
+        }
+    </style>
+</head>
+<body>
+    <h1>Convex Hull Calculator</h1>
+    <form action="/calculate_convex_hull" method="POST">
+        <label for="points">Enter Points (one per line, format: x,y):</label><br>
+        <textarea id="points" name="points" rows="5" cols="30"></textarea><br>
+        <label for="algorithm">Select Algorithm:</label>
+        <select id="algorithm" name="algorithm">
+            <option value="gift_wrapping">Gift Wrapping</option>
+            <option value="graham_scan">Graham Scan</option>
+            <option value="divide_and_conquer">Divide and Conquer</option>
+        </select><br>
+        <input type="submit" value="Plot Convex Hull">
+    </form>
+
+    {% if points %}
+    <h2>Input Points:</h2>
+    <ul>
+        {% for point in points %}
+        <li>{{ point }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Convex Hull:</h2>
+    {% if hull %}
+    <ul>
+        {% for point in hull %}
+        <li>{{ point }}</li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>Convex hull calculation failed or not possible.</p>
+    {% endif %}
+
+    <h2>Convex Hull Plot:</h2>
+    {% if plot %}
+    <img src="data:image/png;base64,{{ plot }}" alt="Convex Hull Plot">
+    {% else %}
+    <p>No plot available.</p>
+    {% endif %}
+    {% endif %}
+</body>
+</html>
